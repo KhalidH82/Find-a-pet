@@ -253,7 +253,7 @@ function fetchAnimals(e) {
 	}).then(function (res) {
 		return res.json();
 	}).then(function (data) {
-		return console.log(data);
+		return showAnimals(data.petfinder.pets.pet);
 	}).catch(function (err) {
 		return console.log(err);
 	});
@@ -261,6 +261,19 @@ function fetchAnimals(e) {
 
 function callback(data) {
 	console.log(data);
+}
+
+function showAnimals(pets) {
+	var results = document.querySelector('#results');
+
+	results.innerHTML = '';
+
+	pets.forEach(function (pet) {
+		var div = document.createElement('div');
+		div.classList.add('card', 'card-body', 'mb-3');div.innerHTML = '\n\t\t<div class=\'row\'>\n\t\t<div class=\'col-sm-6\'>\n\t<h4>' + pet.name.$t + ' (' + pet.age.$t + ')</h4>\n\t<p class="text-secondary">' + pet.breeds.breed.$t + '</p>\n\t<p>' + pet.contact.address1.$t + ' ' + pet.contact.city.$t + ' ' + pet.contact.state.$t + ' ' + pet.contact.zip.$t + '</p>\n\n\t\t<ul class="list-group">\n\t\t<li class="list-group-item">Phone: ' + pet.contact.phone.$t + '</li>\n\t\t' + (pet.contact.email.$t ? '<li class="list-group-item">Email: ' + pet.contact.email.$t + '</li>' : '') + '\n\t\t<li class="list-group-item">Shelter ID: ' + pet.shelterId.$t + '</li>\n\t\t</ul>\n\t\t\n\t\t</div>\n\t\t<div class=\'col-sm-6 text-center\'>\n\t\t<img src=\'' + pet.media.photos.photo[3].$t + '\'>\n\t\t\n\t\t</div>\n\t\t</div>\n\t\t';
+
+		results.appendChild(div);
+	});
 }
 },{"fetch-jsonp":"node_modules/fetch-jsonp/build/fetch-jsonp.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -291,7 +304,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60290' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49269' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
