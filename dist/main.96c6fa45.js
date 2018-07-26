@@ -229,12 +229,44 @@ var global = arguments[3];
 
   module.exports = fetchJsonp;
 });
+},{}],"js/validate.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.isValidZip = isValidZip;
+exports.showAlert = showAlert;
+function isValidZip(zip) {
+	return (/^\d{5}(-\d{4})?$/.test(zip)
+	);
+}
+
+function showAlert(message, className) {
+	var div = document.createElement('div');
+
+	div.className = 'alert alert-' + className;
+
+	div.appendChild(document.createTextNode(message));
+
+	var container = document.querySelector('.container');
+
+	var form = document.querySelector('#pet-form');
+
+	container.insertBefore(div, form);
+
+	setTimeout(function () {
+		return document.querySelector('.alert').remove();
+	}, 3000);
+}
 },{}],"js/main.js":[function(require,module,exports) {
 'use strict';
 
 var _fetchJsonp = require('fetch-jsonp');
 
 var _fetchJsonp2 = _interopRequireDefault(_fetchJsonp);
+
+var _validate = require('./validate');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -247,6 +279,11 @@ function fetchAnimals(e) {
 
 	var animal = document.querySelector('#animal').value;
 	var zip = document.querySelector('#zip').value;
+
+	if (!(0, _validate.isValidZip)(zip)) {
+		(0, _validate.showAlert)('Please Enter A Valid Zipcode', 'danger');
+		return;
+	}
 
 	(0, _fetchJsonp2.default)('http://api.petfinder.com/pet.find?format=json&key=85022996c5f0497e738500929748affc&animal=' + animal + '&location=' + zip + '&callback=callback', {
 		jsonpCallbackFunction: 'callback'
@@ -275,7 +312,7 @@ function showAnimals(pets) {
 		results.appendChild(div);
 	});
 }
-},{"fetch-jsonp":"node_modules/fetch-jsonp/build/fetch-jsonp.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"fetch-jsonp":"node_modules/fetch-jsonp/build/fetch-jsonp.js","./validate":"js/validate.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
