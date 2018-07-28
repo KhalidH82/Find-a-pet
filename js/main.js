@@ -6,19 +6,23 @@ const petForm = document.querySelector('#pet-form');
 
 petForm.addEventListener('submit', fetchAnimals)
 
+
+// Fetch Animals From API
 function fetchAnimals(e) {
 	e.preventDefault();
 
+// Get User Input
 	const animal = document.querySelector('#animal').value;
 	const zip = document.querySelector('#zip').value;
 
+// Validate Zip
 	if(!isValidZip(zip)) {
 		showAlert('Please Enter A Valid Zipcode', 'danger')
 		return;
 	}
 
 
-
+// Fetch Pets
 	fetchJsonp(`http://api.petfinder.com/pet.find?format=json&key=85022996c5f0497e738500929748affc&animal=${animal}&location=${zip}&callback=callback`, {
 		jsonpCallbackFunction: 'callback'
 	})
@@ -27,15 +31,14 @@ function fetchAnimals(e) {
 	.catch(err => console.log(err))
 }
 
-function callback(data) {
-	console.log(data)
-}
 
+// Show Listings Of Pets
 function showAnimals(pets) {
 	const results = document.querySelector('#results')
 
+ // Clear First
 	results.innerHTML = '';
-
+ // Loop Through Pets
 	pets.forEach((pet) => {
 		const div = document.createElement('div');
 		div.classList.add('card', 'card-body', 'mb-3');div.innerHTML = `
