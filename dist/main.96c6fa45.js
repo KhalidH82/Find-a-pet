@@ -237,22 +237,25 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isValidZip = isValidZip;
 exports.showAlert = showAlert;
+// Validate Zipcode
 function isValidZip(zip) {
 	return (/^\d{5}(-\d{4})?$/.test(zip)
 	);
 }
 
+// Display Alert Message
 function showAlert(message, className) {
+	// Create div
 	var div = document.createElement('div');
-
+	// Add Classes
 	div.className = 'alert alert-' + className;
-
 	div.appendChild(document.createTextNode(message));
-
+	// Get Container
 	var container = document.querySelector('.container');
 
+	// Get Form
 	var form = document.querySelector('#pet-form');
-
+	// Insert Alert
 	container.insertBefore(div, form);
 
 	setTimeout(function () {
@@ -274,17 +277,21 @@ var petForm = document.querySelector('#pet-form');
 
 petForm.addEventListener('submit', fetchAnimals);
 
+// Fetch Animals From API
 function fetchAnimals(e) {
 	e.preventDefault();
 
+	// Get User Input
 	var animal = document.querySelector('#animal').value;
 	var zip = document.querySelector('#zip').value;
 
+	// Validate Zip
 	if (!(0, _validate.isValidZip)(zip)) {
 		(0, _validate.showAlert)('Please Enter A Valid Zipcode', 'danger');
 		return;
 	}
 
+	// Fetch Pets
 	(0, _fetchJsonp2.default)('http://api.petfinder.com/pet.find?format=json&key=85022996c5f0497e738500929748affc&animal=' + animal + '&location=' + zip + '&callback=callback', {
 		jsonpCallbackFunction: 'callback'
 	}).then(function (res) {
@@ -296,11 +303,13 @@ function fetchAnimals(e) {
 	});
 }
 
+// Show Listings Of Pets
 function showAnimals(pets) {
 	var results = document.querySelector('#results');
-	console.log(pets);
-	results.innerHTML = '';
 
+	// Clear First
+	results.innerHTML = '';
+	// Loop Through Pets
 	pets.forEach(function (pet) {
 		var div = document.createElement('div');
 		div.classList.add('card', 'card-body', 'mb-3');div.innerHTML = '\n\t\t<div class=\'row\'>\n\t\t<div class=\'col-sm-6\'>\n\t<h4>' + pet.name.$t + ' (' + pet.age.$t + ')</h4>\n\t<p class="text-secondary">' + pet.breeds.breed.$t + '</p>\n\t<p>' + pet.contact.address1.$t + ' ' + pet.contact.city.$t + ' ' + pet.contact.state.$t + ' ' + pet.contact.zip.$t + '</p>\n\n\t\t<ul class="list-group">\n\t\t<li class="list-group-item">Phone: ' + pet.contact.phone.$t + '</li>\n\t\t' + (pet.contact.email.$t ? '<li class="list-group-item">Email: ' + pet.contact.email.$t + '</li>' : '') + '\n\t\t<li class="list-group-item">Shelter ID: ' + pet.shelterId.$t + '</li>\n\t\t</ul>\n\t\t\n\t\t</div>\n\t\t<div class=\'col-sm-6 text-center\'>\n\t\t<img src=\'' + pet.media.photos.photo[3].$t + '\'>\n\t\t\n\t\t</div>\n\t\t</div>\n\t\t';
@@ -337,7 +346,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57741' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '62177' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
