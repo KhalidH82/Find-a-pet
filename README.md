@@ -1,4 +1,4 @@
-Petfinder App
+Petfinder App<br>
 This application is hosted on GitHub pages, please click image to view.
 
 <a href="https://khalidh82.github.io/Find-a-pet/"><img src="pet.png"></a>
